@@ -1,12 +1,15 @@
 const minSubArrayLen = (arr, int) => {
 
   let first = 0; // keeps track of current starting point
-  let total = 0;
+  let total = arr[0];
   let last = 0;
 
   while (total < int) { //first subarray greater than or equal to toal
-      total += arr[last];
-      last++;
+    last++;
+    total += arr[last];
+    if (total < int && last === arr.length - 1) {
+      return 0;
+    }
   }
 
   let min = last + 1;
@@ -22,8 +25,8 @@ const minSubArrayLen = (arr, int) => {
       } else if (total < int) {
           total -= arr[first];
           first++;
-          total += arr[last];
           last++;
+          total += arr[last];
       }
     }
     return min;
